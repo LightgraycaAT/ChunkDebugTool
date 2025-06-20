@@ -1,0 +1,6 @@
+debug.gamemodes.select_next=next
+debug.gamemodes.press_f4=F4
+commands.locate.success_1=The nearest %s is at
+commands.locate.success_2=[%s, ~, %s]
+commands.locate.success_3=(%s blocks away)
+chat.coordinates.tooltip=Click to teleport

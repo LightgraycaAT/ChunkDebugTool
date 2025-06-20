@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "example_mod",
+	"id": "chunkdebugtool",
 	"version": "${version}",
-	"name": "Example mod",
+	"name": "ChunkDebug Tool",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"Me!"
@@ -12,19 +12,23 @@
 		"sources": "https://github.com/OrnitheMC/ornithe-template-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/example_mod/icon.png",
+	"icon": "assets/chunkdebugtool/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"init": [
-			"com.example.example_mod.ExampleMod"
-		]
+      "org.metooo.chunkdebugtool.ChunkDebugTool"
+		],
+    "client-init": [
+      "org.metooo.chunkdebugtool.ChunkDebugTool"
+    ]
 	},
 	"mixins": [
-		"example_mod.mixins.json"
+		"chunkdebugtool.mixins.json"
 	],
+  "accessWidener": "chunkdebugtool.accesswidener",
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "1.7.2",
+		"fabricloader": ">=0.16.0",
+		"minecraft": "1.12.2",
 		"osl-entrypoints": ">=0.4.0"
 	}
 }

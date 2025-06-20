@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.metooo.chunkdebugtool.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BlockMixin",
+    "ChunkHolderMixin",
+    "ChunkMapMixin",
+    "EndGatewayBlockEntityMixin",
+    "EndPortalBlockMixin",
+    "EntityMixin",
+    "GoalSelectorMixin",
+    "HopperBlockEntityMixin",
+    "LivingEntityMixin",
+    "MinecraftServerMixin",
+    "MovingBlockEntityMixin",
+    "PistonBaseBlockMixin",
+    "ServerChunkCacheMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "ServerWorldMixin",
+    "WorldChunkMixin",
+    "WorldMixin"
+  ],
+  "client": [
+    "hud.GameRendererMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
