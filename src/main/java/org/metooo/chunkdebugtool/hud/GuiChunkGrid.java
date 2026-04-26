@@ -3,10 +3,10 @@ package org.metooo.chunkdebugtool.hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.screen.Screen;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.Tessellator;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.client.render.vertex.BufferBuilder;
+import net.minecraft.client.render.platform.GlStateManager;
+import net.minecraft.client.render.vertex.Tesselator;
+import net.minecraft.client.render.vertex.DefaultVertexFormat;
 import net.minecraft.text.LiteralText;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -234,8 +234,8 @@ public class GuiChunkGrid extends Screen {
         chunkgrid.draw(controller.getView(), 0, HEADER_HEIGHT, width, height - HEADER_HEIGHT - FOOTER_HEIGHT);
 
         minecraft.getTextureManager().bind(BACKGROUND_LOCATION);
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder buf = tess.getBuilder();
+        Tesselator tess = Tesselator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
 
         // Draw 4 pixel high fading transitions
         GlStateManager.enableBlend();

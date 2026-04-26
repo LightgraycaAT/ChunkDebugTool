@@ -5,6 +5,7 @@ import net.minecraft.server.ChunkHolder;
 import net.minecraft.server.ChunkMap;
 import net.minecraft.server.entity.living.player.ServerPlayerEntity;
 import net.minecraft.util.math.ChunkPos;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,7 +26,7 @@ public class ChunkHolderMixin {
 	@Final
 	private ChunkPos pos;
 
-	@Inject(method="<init>",at= @At(value = "FIELD", target = "net/minecraft/server/ChunkHolder.pos : Lnet/minecraft/util/math/ChunkPos;",shift = At.Shift.AFTER))
+	@Inject(method="<init>",at= @At(value = "FIELD", target = "net/minecraft/server/ChunkHolder.pos : Lnet/minecraft/util/math/ChunkPos;", shift = At.Shift.AFTER, opcode = PUTFIELD))
 	public void onReasonLoggingStart(ChunkMap chunkMap, int chunkX, int chunkZ, CallbackInfo ci) {
 		if(ChunkDebugToolLogger.logger.enabled)ChunkDebugToolLogger.setReason("Player loading chunk");
 	}
@@ -49,7 +50,7 @@ public class ChunkHolderMixin {
 			ChunkDebugToolLogger.resetReason();
 		}
 	}
-	@Inject(method="load",at= @At(value = "FIELD", target = "net/minecraft/server/ChunkHolder.chunkMap : Lnet/minecraft/server/ChunkMap;",ordinal = 0))
+	@Inject(method="load",at= @At(value = "FIELD", target = "net/minecraft/server/ChunkHolder.chunkMap : Lnet/minecraft/server/ChunkMap;", ordinal = 0, opcode = Opcodes.GETFIELD))
 	public void onReasonLoggingStart4(boolean generate, CallbackInfoReturnable<Boolean> cir) {
 		if(ChunkDebugToolLogger.logger.enabled)ChunkDebugToolLogger.setReason("Player loading new chunks and generating");
 	}

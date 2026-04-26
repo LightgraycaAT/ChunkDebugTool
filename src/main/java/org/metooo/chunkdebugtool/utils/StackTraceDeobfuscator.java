@@ -25,9 +25,9 @@ public class StackTraceDeobfuscator {
 	private static final Set<String> srgUrlsLoaded = new HashSet<>(), namesUrlsLoaded = new HashSet<>();
 	private static final Object SRG_SYNC_LOCK = new Object();
 	private static final Object NAMES_SYNC_LOCK = new Object();
-	private static final String CARPET_DIRECTORY = "carpet";
-	private static final String JOINED_FILE_NAME = CARPET_DIRECTORY + "/joined.srg";
-	private static final String METHODS_FILE_NAME = CARPET_DIRECTORY + "/methods.csv";
+	private static final String DIRECTORY = "chunkdebugtool";
+	private static final String JOINED_FILE_NAME = DIRECTORY + "/joined.srg";
+	private static final String METHODS_FILE_NAME = DIRECTORY + "/methods.csv";
 
 	private StackTraceDeobfuscator() {
 	}
@@ -138,7 +138,7 @@ public class StackTraceDeobfuscator {
 			Thread t = new Thread(() -> {
 				URL url;
 				InputStream in = null;
-				File carpetDirectory = new File(CARPET_DIRECTORY);
+				File carpetDirectory = new File(DIRECTORY);
 				File joinedFile = new File(JOINED_FILE_NAME);
 				if (!carpetDirectory.exists() || !joinedFile.exists()) {
 					carpetDirectory.mkdir();
@@ -192,10 +192,10 @@ public class StackTraceDeobfuscator {
 				Thread t = new Thread(() -> {
 					URL url;
 					InputStream in = null;
-					File carpetDirectory = new File(CARPET_DIRECTORY);
+					File directory = new File(DIRECTORY);
 					File methodsFile = new File(METHODS_FILE_NAME);
-					if (!carpetDirectory.exists() || !methodsFile.exists()) {
-						carpetDirectory.mkdir();
+					if (!directory.exists() || !methodsFile.exists()) {
+						directory.mkdir();
 						try {
 							url = new URL(namesUrl);
 						} catch (MalformedURLException e) {

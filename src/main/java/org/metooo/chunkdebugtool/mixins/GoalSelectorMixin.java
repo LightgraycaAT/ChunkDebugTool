@@ -12,7 +12,7 @@ import static org.objectweb.asm.Opcodes.GOTO;
 
 @Mixin(GoalSelector.class)
 public class GoalSelectorMixin {
-	@Inject(method = "tick",at= @At(value = "FIELD", target = "net/minecraft/entity/ai/goal/GoalSelector$Entry.f_3327432 : Z",ordinal = 0))
+	@Inject(method = "tick",at= @At(value = "FIELD", target = "net/minecraft/entity/ai/goal/GoalSelector$Entry.running : Z",ordinal = 0))
 	public void onReasonLoggingStart(CallbackInfo ci, @Local GoalSelector.Entry entry) {
 		if(ChunkDebugToolLogger.logger.enabled)
 			ChunkDebugToolLogger.setReason("Entity" + "lazy to do");

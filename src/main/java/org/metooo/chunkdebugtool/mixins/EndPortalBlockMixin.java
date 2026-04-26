@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EndPortalBlock.class)
 public class EndPortalBlockMixin {
-	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "net/minecraft/entity/Entity.teleportToDimension (I)Lnet/minecraft/entity/Entity;"))
+	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "net/minecraft/entity/Entity.changeDimension (I)Lnet/minecraft/entity/Entity;"))
 	public void onReasonLoggingStart(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
 		if(ChunkDebugToolLogger.logger.enabled)
 			ChunkDebugToolLogger.setReason("Entity going through end portal");
 	}
-	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "net/minecraft/entity/Entity.teleportToDimension (I)Lnet/minecraft/entity/Entity;", shift = At.Shift.AFTER))
+	@Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "net/minecraft/entity/Entity.changeDimension (I)Lnet/minecraft/entity/Entity;", shift = At.Shift.AFTER))
 	public void onReasonLoggingEnd(World world, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
 		ChunkDebugToolLogger.resetReason();
 	}

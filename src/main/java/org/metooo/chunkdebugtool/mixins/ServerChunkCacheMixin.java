@@ -52,7 +52,7 @@ public class ServerChunkCacheMixin {
 		ChunkDebugToolLogger.resetToOldReason();
 	}
 
-	@Inject(method = "getChunk",at= @At(value = "INVOKE", target = "net/minecraft/world/chunk/ChunkGenerator.getChunk (II)Lnet/minecraft/world/chunk/WorldChunk;",shift = At.Shift.AFTER))
+	@Inject(method = "getChunk",at= @At(value = "INVOKE", target = "net/minecraft/world/chunk/ChunkGenerator.generateChunk (II)Lnet/minecraft/world/chunk/WorldChunk;",shift = At.Shift.AFTER))
 	public void onReasonLogging5(int chunkX, int chunkZ, CallbackInfoReturnable<WorldChunk> cir) {
 		if(ChunkDebugToolLogger.logger.enabled) ChunkDebugToolLogger.logger.log(world,chunkX,chunkZ,ChunkDebugToolLogger.Event.GENERATING);
 	}

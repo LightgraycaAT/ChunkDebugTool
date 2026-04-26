@@ -15,12 +15,12 @@ public abstract class LivingEntityMixin extends Entity {
 		super(world);
 	}
 
-	@Inject(method = "moveEntityWithVelocity", at = @At(value = "INVOKE", target = "net/minecraft/entity/living/LivingEntity.move (Lnet/minecraft/entity/MoverType;DDD)V",ordinal = 3))
+	@Inject(method = "moveRelative", at = @At(value = "INVOKE", target = "net/minecraft/entity/living/LivingEntity.move (Lnet/minecraft/entity/MoverType;DDD)V",ordinal = 3))
 	public void onReasonLoggingStart(float velocityX, float velocityY, float velocityZ, CallbackInfo ci) {
 		if (ChunkDebugToolLogger.logger.enabled)
 			ChunkDebugToolLogger.setReason("Entity walking around: " + getName());
 	}
-	@Inject(method = "moveEntityWithVelocity", at = @At(value = "INVOKE", target = "net/minecraft/entity/living/LivingEntity.move (Lnet/minecraft/entity/MoverType;DDD)V",ordinal = 3, shift = At.Shift.AFTER))
+	@Inject(method = "moveRelative", at = @At(value = "INVOKE", target = "net/minecraft/entity/living/LivingEntity.move (Lnet/minecraft/entity/MoverType;DDD)V",ordinal = 3, shift = At.Shift.AFTER))
 	public void onReasonLoggingEnd(float velocityX, float velocityY, float velocityZ, CallbackInfo ci) {
 		ChunkDebugToolLogger.resetReason();
 	}

@@ -1,5 +1,6 @@
 package org.metooo.chunkdebugtool;
 
+import net.ornithemc.osl.networking.api.PacketBuffer;
 import org.metooo.chunkdebugtool.fakes.ChunkMapInterface;
 import org.metooo.chunkdebugtool.utils.LRUCache;
 import net.minecraft.nbt.NbtCompound;
@@ -66,7 +67,7 @@ public class ChunkDebugToolLogger {
 	/*
 	 * called when registering a new player
 	 */
-	public void registerPlayer(ServerPlayerEntity sender,PacketByteBuf data) {
+	public void registerPlayer(ServerPlayerEntity sender, PacketBuffer data) {
 		clients.registerPlayer(sender,data);
 	}
 
@@ -153,7 +154,7 @@ public class ChunkDebugToolLogger {
 
 		private String asString(StackTraceElement[] trace, boolean deobfuscated) {
 			if (deobfuscated) {
-				//trace = DEOBFUSCATOR.withStackTrace(trace).deobfuscate();
+				// trace = DEOBFUSCATOR.withStackTrace(trace).deobfuscate();
 			}
 			StringBuilder stacktrace = new StringBuilder();
 			int i;
@@ -238,7 +239,7 @@ public class ChunkDebugToolLogger {
 
 		private final Map<ServerPlayerEntity, HashSet<InternedString>> sentTracesForPlayer = new WeakHashMap<>();
 
-		public void registerPlayer(ServerPlayerEntity sender,PacketByteBuf data) {
+		public void registerPlayer(ServerPlayerEntity sender,PacketBuffer data) {
 			if(!ChunkDebugTool.enabled){
 				ChunkDebugToolHandler.sendNBTChunkData(sender, PACKET_ACCESS_DENIED, new NbtCompound());
 				return;
@@ -362,7 +363,7 @@ public class ChunkDebugToolLogger {
 				NbtCompound stackTrace = new NbtCompound();
 				stackTrace.putInt("id", obfuscated.id);
 				stackTrace.putString("stack", obfuscated.deobfuscated);
-				list.add(stackTrace);
+				list.addElement(stackTrace);
 			}
 			NbtCompound stackList = new NbtCompound();
 			stackList.put("stackList", list);

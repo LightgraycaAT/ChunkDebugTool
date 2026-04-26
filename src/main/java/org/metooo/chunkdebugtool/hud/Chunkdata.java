@@ -1,5 +1,6 @@
 package org.metooo.chunkdebugtool.hud;
 
+import net.ornithemc.osl.networking.api.PacketBuffer;
 import org.metooo.chunkdebugtool.ChunkDebugTool;
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.NbtCompound;
@@ -894,7 +895,7 @@ public class Chunkdata implements Serializable {
     private static Chunkdata instance;
 
     private static void startStopRecording(boolean start) {
-        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        PacketBuffer data = new PacketBuffer(Unpooled.buffer());
         data.writeBoolean(start);
 		ClientPlayNetworking.send(ChunkDebugTool.DATA_CHANNEL, data);
     }
@@ -910,7 +911,7 @@ public class Chunkdata implements Serializable {
         startStopRecording(false);
     }
 
-    public static void processPacket(PacketByteBuf data) {
+    public static void processPacket(PacketBuffer data) {
         int type = data.readInt();
 
         NbtCompound nbt=data.readNbtCompound();

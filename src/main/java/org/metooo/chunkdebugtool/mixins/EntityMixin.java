@@ -23,12 +23,12 @@ public abstract class EntityMixin {
 	private void onReasonLoggingEnd(CallbackInfoReturnable<Boolean> cir) {
 		ChunkDebugToolLogger.resetReason();
 	}
-	@Inject(method = "teleportToDimension", at = @At(value = "INVOKE", target = "net/minecraft/server/world/PortalForcer.findNetherPortal (Lnet/minecraft/entity/Entity;F)Z"))
+	@Inject(method = "changeDimension", at = @At(value = "INVOKE", target = "net/minecraft/server/world/PortalForcer.findNetherPortal (Lnet/minecraft/entity/Entity;F)Z"))
 	private void onReasonLoggingStart2(CallbackInfoReturnable<Boolean> cir) {
 		if(ChunkDebugToolLogger.logger.enabled)
 			ChunkDebugToolLogger.setReason("Entity going through nether portal: " + getName());
 	}
-	@Inject(method = "teleportToDimension", at = @At(value = "INVOKE", target = "net/minecraft/server/world/PortalForcer.findNetherPortal (Lnet/minecraft/entity/Entity;F)Z", shift = At.Shift.AFTER))
+	@Inject(method = "changeDimension", at = @At(value = "INVOKE", target = "net/minecraft/server/world/PortalForcer.findNetherPortal (Lnet/minecraft/entity/Entity;F)Z", shift = At.Shift.AFTER))
 	private void onReasonLoggingEnd2(CallbackInfoReturnable<Boolean> cir) {
 		ChunkDebugToolLogger.resetReason();
 	}

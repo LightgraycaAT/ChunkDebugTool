@@ -19,7 +19,7 @@
       "org.metooo.chunkdebugtool.ChunkDebugTool"
 		],
     "client-init": [
-      "org.metooo.chunkdebugtool.ChunkDebugTool"
+      "org.metooo.chunkdebugtool.ChunkDebugToolClient"
     ]
 	},
 	"mixins": [

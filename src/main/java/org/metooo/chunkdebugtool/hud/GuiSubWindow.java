@@ -4,10 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiElement;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.screen.Screen;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.Tessellator;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.client.render.vertex.BufferBuilder;
+import net.minecraft.client.render.platform.GlStateManager;
+import net.minecraft.client.render.vertex.Tesselator;
+import net.minecraft.client.render.vertex.DefaultVertexFormat;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -58,8 +58,8 @@ public abstract class GuiSubWindow extends Screen {
 
         GlStateManager.disableTexture();
         GlStateManager.lineWidth(2);
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder buf = tess.getBuilder();
+        Tesselator tess = Tesselator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
         buf.begin(GL11.GL_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
         buf.vertex(getSubWindowRight(), getSubWindowBottom() - getFooterHeight(), 0).color(255, 255, 255, 255).nextVertex();
         buf.vertex(getSubWindowLeft(), getSubWindowBottom() - getFooterHeight(), 0).color(255, 255, 255, 255).nextVertex();
