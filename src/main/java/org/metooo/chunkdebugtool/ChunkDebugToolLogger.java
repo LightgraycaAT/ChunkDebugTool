@@ -2,10 +2,11 @@ package org.metooo.chunkdebugtool;
 
 import net.ornithemc.osl.networking.api.PacketBuffer;
 import org.metooo.chunkdebugtool.fakes.ChunkMapInterface;
+import org.metooo.chunkdebugtool.fakes.MinecraftServerInterface;
+import org.metooo.chunkdebugtool.utils.IntermediaryDeobfuscator;
 import org.metooo.chunkdebugtool.utils.LRUCache;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.ChunkMap;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.living.player.ServerPlayerEntity;
@@ -14,7 +15,6 @@ import net.minecraft.server.world.chunk.ServerChunkCache;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
-import org.metooo.chunkdebugtool.utils.StackTraceDeobfuscator;
 
 import java.util.*;
 
@@ -94,7 +94,7 @@ public class ChunkDebugToolLogger {
 				}
 			}
 			ChunkMap chunkmap = w.getChunkMap();
-			Iterator<ChunkPos> i = ((ChunkMapInterface)chunkmap).carpetGetAllChunkCoordinates();
+			Iterator<ChunkPos> i = ((ChunkMapInterface)chunkmap).chunkDebugTool$carpetGetAllChunkCoordinates();
 			while (i.hasNext()) {
 				ChunkPos pos = i.next();
 				forNewClient.add(new ChunkLog(pos.x, pos.z, dimension, Event.PLAYER_ENTERS, null, null));
@@ -123,7 +123,8 @@ public class ChunkDebugToolLogger {
 	}
 	private static class StackTraces {
 		//a remap of java stack traces to a readable string
-		private static final StackTraceDeobfuscator DEOBFUSCATOR = StackTraceDeobfuscator.create().withMinecraftVersion("1.12.2");
+		private static final IntermediaryDeobfuscator DEOBFUSCATOR_INTERMEDIARY = IntermediaryDeobfuscator.create().withInfo("1.12.2", "feather", 31);
+		//private static final StackTraceDeobfuscator DEOBFUSCATOR = StackTraceDeobfuscator.create().withMinecraftVersion("1.12.2");
 		private final Map<String, InternedString> internedStrings = new LRUCache<>(128); // 64 ~ 98%, 128+ > 99%
 		private int nextId = 1;
 
@@ -154,7 +155,7 @@ public class ChunkDebugToolLogger {
 
 		private String asString(StackTraceElement[] trace, boolean deobfuscated) {
 			if (deobfuscated) {
-				// trace = DEOBFUSCATOR.withStackTrace(trace).deobfuscate();
+				trace = DEOBFUSCATOR_INTERMEDIARY.withStackTrace(trace).deobfuscate();
 			}
 			StringBuilder stacktrace = new StringBuilder();
 			int i;
@@ -240,7 +241,7 @@ public class ChunkDebugToolLogger {
 		private final Map<ServerPlayerEntity, HashSet<InternedString>> sentTracesForPlayer = new WeakHashMap<>();
 
 		public void registerPlayer(ServerPlayerEntity sender,PacketBuffer data) {
-			if(!ChunkDebugTool.enabled){
+			if(!((MinecraftServerInterface)sender.server).chunkDebugTool$getFlag()){
 				ChunkDebugToolHandler.sendNBTChunkData(sender, PACKET_ACCESS_DENIED, new NbtCompound());
 				return;
 			}

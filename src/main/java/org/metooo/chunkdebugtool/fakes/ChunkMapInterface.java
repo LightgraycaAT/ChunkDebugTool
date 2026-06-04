@@ -5,7 +5,7 @@ import net.minecraft.util.math.ChunkPos;
 import java.util.Iterator;
 
 public interface ChunkMapInterface {
-	default Iterator<ChunkPos> carpetGetAllChunkCoordinates(){
+	default Iterator<ChunkPos> chunkDebugTool$carpetGetAllChunkCoordinates(){
 		return null;
 	}
 }

@@ -418,7 +418,7 @@ public class GuiChunkGrid extends Screen {
         loadButton.active = saveButton.active = playButton.active = true;
         currentButton.active = false;
         controller.setStart(false);
-		Minecraft.getInstance().gui.getChat().addMessage(new LiteralText("Chunk Debug Tool disabled on the server, enable chunkDebugTool rule for use."));
+		Minecraft.getInstance().gui.getChat().addMessage(new LiteralText("Chunk Debug Tool disabled on the server, use \"/chunkdebugtool enable\" for use."));
     }
 
     public Controller getController() {

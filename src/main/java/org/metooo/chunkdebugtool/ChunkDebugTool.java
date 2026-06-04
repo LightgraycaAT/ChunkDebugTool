@@ -2,6 +2,7 @@ package org.metooo.chunkdebugtool;
 
 import net.ornithemc.osl.core.api.util.NamespacedIdentifier;
 import net.ornithemc.osl.core.impl.util.NamespacedIdentifierImpl;
+import net.ornithemc.osl.lifecycle.api.server.MinecraftServerEvents;
 import net.ornithemc.osl.networking.api.ChannelRegistry;
 import net.ornithemc.osl.networking.api.server.ServerConnectionEvents;
 import net.ornithemc.osl.networking.api.server.ServerPlayNetworking;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.ornithemc.osl.entrypoints.api.ModInitializer;
+import org.metooo.chunkdebugtool.fakes.MinecraftServerInterface;
 
 
 public class ChunkDebugTool implements ModInitializer {
@@ -23,6 +25,10 @@ public class ChunkDebugTool implements ModInitializer {
 	public void init() {
 		LOGGER.info("initializing chunk debug tool!");
 		ChannelRegistry.register(ChunkDebugTool.DATA_CHANNEL, true, true);
+
+		MinecraftServerEvents.STOP.register(server -> {
+			((MinecraftServerInterface)server).chunkDebugTool$setFlag(false);
+		});
 
 		ServerPlayNetworking.registerListener(DATA_CHANNEL, (ctx, data) -> {
 			ChunkDebugToolLogger.logger.registerPlayer(ctx.player(), data);

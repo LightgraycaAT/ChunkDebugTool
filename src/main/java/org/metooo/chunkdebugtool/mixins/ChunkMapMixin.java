@@ -25,7 +25,7 @@ public class ChunkMapMixin implements ChunkMapInterface {
 	@Shadow
 	private final List<ChunkHolder> chunks = Lists.newArrayList();
 	@Unique
-	public Iterator<ChunkPos> carpetGetAllChunkCoordinates(){
+	public Iterator<ChunkPos> chunkDebugTool$carpetGetAllChunkCoordinates(){
 		return new AbstractIterator<>() {
 			final Iterator<ChunkHolder> allChunks = Iterators.concat(chunks.iterator(), loading.iterator());
 			@Override

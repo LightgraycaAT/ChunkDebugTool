@@ -7,7 +7,7 @@ import net.minecraft.server.command.exception.IncorrectUsageException;
 import net.minecraft.server.command.source.CommandSource;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import org.metooo.chunkdebugtool.ChunkDebugTool;
+import org.metooo.chunkdebugtool.fakes.MinecraftServerInterface;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,10 +27,10 @@ public class ChunkDebugToolCommand extends AbstractCommand {
     public void run(MinecraftServer server, CommandSource source, String[] args) throws CommandException {
         if(args.length == 1){
             if(args[0].equals("enable")){
-                ChunkDebugTool.enabled = true;
+                ((MinecraftServerInterface)server).chunkDebugTool$setFlag(true);
                 AbstractCommand.sendSuccess(source, this, "Chunk Debug Tool enabled");
             } else if(args[0].equals("disable")){
-                ChunkDebugTool.enabled = false;
+                ((MinecraftServerInterface)server).chunkDebugTool$setFlag(false);
                 AbstractCommand.sendSuccess(source, this, "Chunk Debug Tool disabled");
             } else {
                 throw new CommandException("Invalid argument");
